@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Vera的主页">
 <meta property="og:description" content="Linux命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-19T15:21:01.430Z">
+<meta property="og:updated_time" content="2019-02-19T16:02:05.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常见面试问题">
 <meta name="twitter:description" content="Linux命令">
@@ -179,7 +179,8 @@
 <a id="more"></a>
 <h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>查看当前进程 ps(process)<br>ps [option] [–help]<br>参数：<br>-A列出所有的行程<br>-w 显示加宽可以显示较多的资讯<br>-au 显示较详细的资讯<br>-aux 显示所有包含其他使用者的行程</p>
 <h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>lsof意为列出当前系统打开的文件<br>查看某个端口被占用情况<br>lsof -i:端口号</p>
-<p>#</p>
+<h1 id="netstat-amp-grep"><a href="#netstat-amp-grep" class="headerlink" title="netstat &amp; grep"></a>netstat &amp; grep</h1><p>netstat用于显示网络状态<br>netstat -lnt | grep 端口<br>-l或–listening 显示监控中的服务器的Socket。<br>-n或–numeric 直接使用IP地址，而不通过域名服务器。<br>-t或–tcp 显示TCP传输协议的连线状况。<br>-u或–udp 显示UDP传输协议的连线状况。   </p>
+<p>grep用于查找文件里符合条件的字符串。</p>
 <h1 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h1><p>kill命令用于删除执行中的程序或工作。<br>kill [参数][进程号]<br>kill [-s &lt;信息名称或编号&gt;][程序]　或　kill [-l &lt;信息编号&gt;]<br>kill -9 123456表示彻底杀死进程，必杀令<br>kill -l 列出所有信号名称<br>只有第9种信号(SIGKILL)</p>
 <p>才可以无条件终止进程，其他信号进程都有权利忽略。 下面是常用的信号：</p>
 <p>HUP    1    终端断线</p>
@@ -188,7 +189,8 @@
 <p>TERM   15    终止</p>
 <p>KILL    9    强制终止</p>
 <p>CONT   18    继续（与STOP相反， fg/bg命令）</p>
-<p>STOP    19    暂停（同 Ctrl + Z）<br>系统会发送一个SIGTERM的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p>
+<p>STOP    19    暂停（同 Ctrl + Z）</p>
+<p>系统会发送一个SIGTERM的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p>
 <p>程序立刻停止<br>当程序释放相应资源后再停止<br>程序可能仍然继续运行<br>大部分程序接收到SIGTERM信号后，会先释放自己的资源，然后在停止。但是也有程序可以在接受到信号量后，做一些其他的事情，并且这些事情是可以<br>配置的。如果程序正在等待IO，可能就不会立马做出相应。<br>也就是说，SIGTERM多半是会被阻塞的、忽略。</p>
 
       
@@ -308,6 +310,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/02/25/Redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Redis
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/01/10/java并发之Semaphore/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">java并发之Semaphore</div>
@@ -337,7 +348,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">3.</span> <span class="toc-text">kill</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat-amp-grep"><span class="toc-number">3.</span> <span class="toc-text">netstat &amp; grep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">4.</span> <span class="toc-text">kill</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -465,11 +476,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,7 +484,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,15 +520,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
             
             <div class="clearfix"></div>

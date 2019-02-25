@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://github.com/liuwei110/liuwei110.github.io/blob/master/photo/sort/guibing.gif">
 <meta property="og:image" content="https://github.com/liuwei110/liuwei110.github.io/blob/master/photo/sort/quick.gif">
 <meta property="og:image" content="https://github.com/liuwei110/liuwei110.github.io/blob/master/photo/sort/heap.gif">
-<meta property="og:updated_time" content="2019-02-18T15:13:30.393Z">
+<meta property="og:updated_time" content="2019-02-19T15:28:26.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法-排序">
 <meta name="twitter:description" content="排序算法">
@@ -205,7 +205,7 @@
 <p>代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> left ,<span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> base = nums[left];</span><br><span class="line">		<span class="keyword">int</span> i=left;</span><br><span class="line">		<span class="keyword">int</span> j=right;</span><br><span class="line">		<span class="keyword">if</span> (left&gt;=right) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (left&gt;=right) &#123;</span><br><span class="line">				nums[left]=base;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">				<span class="keyword">if</span> (nums[right]&lt;base) &#123;</span><br><span class="line">					nums[left]=nums[right];</span><br><span class="line">					flag=<span class="keyword">false</span>;</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					</span><br><span class="line">					right--;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(!flag)&#123;</span><br><span class="line">				<span class="keyword">if</span> (nums[left]&gt;base) &#123;</span><br><span class="line">					nums[right]=nums[left];</span><br><span class="line">					flag=<span class="keyword">true</span>;</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					left++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		sort(nums,i,left-<span class="number">1</span>);</span><br><span class="line">		sort(nums,left+<span class="number">1</span>,j);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p><strong>堆排序(Heapsort)</strong>是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
 <p><strong>算法描述</strong><br>将初始待排序关键字序列(R1,R2….Rn)构建成大顶堆，此堆为初始的无序区；<br>将堆顶元素R[1]与最后一个元素R[n]交换，此时得到新的无序区(R1,R2,……Rn-1)和新的有序区(Rn),且满足R[1,2…n-1]&lt;=R[n]；<br>由于交换后新的堆顶R[1]可能违反堆的性质，因此需要对当前无序区(R1,R2,……Rn-1)调整为新堆，然后再次将R[1]与无序区最后一个元素交换，得到新的无序区(R1,R2….Rn-2)和新的有序区(Rn-1,Rn)。不断重复此过程直到有序区的元素个数为n-1，则整个排序过程完成。<br><img src="https://github.com/liuwei110/liuwei110.github.io/blob/master/photo/sort/heap.gif" alt="堆排序"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> nums[] = &#123;<span class="number">5</span>,<span class="number">13</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>&#125;;</span><br><span class="line">		<span class="comment">//首先建立大顶堆</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = (nums.length)/<span class="number">2</span>; i &gt;= <span class="number">0</span> ; i--)</span><br><span class="line">            heapSort(nums,i,nums.length);<span class="comment">//创建大顶堆，从中间向上整理</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = nums.length-<span class="number">1</span>; i &gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">            swap(nums,<span class="number">0</span>,i);<span class="comment">//栈顶拿来存已经整理的数据</span></span><br><span class="line">            heapSort(nums,<span class="number">0</span>,i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> left = <span class="number">2</span>*i+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> right=<span class="number">2</span>*i+<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> largest=i;</span><br><span class="line">		<span class="keyword">if</span> (left&lt;length&amp;&amp;nums[left]&gt;nums[largest]) </span><br><span class="line">			largest=left;</span><br><span class="line">		<span class="keyword">if</span> (right&lt;length&amp;&amp;nums[right]&gt;nums[largest]) </span><br><span class="line">			largest=right;</span><br><span class="line">		<span class="keyword">if</span> (largest!=i) &#123;</span><br><span class="line">			swap(nums,largest,i);</span><br><span class="line">			heapSort(nums, largest, length);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> temp=nums[a];</span><br><span class="line">		nums[a]=nums[b];</span><br><span class="line">		nums[b]=temp;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -494,11 +494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,7 +502,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +526,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,15 +538,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
             
             <div class="clearfix"></div>
