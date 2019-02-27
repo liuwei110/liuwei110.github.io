@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Vera的主页">
 <meta property="og:description" content="redis">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-25T09:19:37.314Z">
+<meta property="og:updated_time" content="2019-02-27T06:12:49.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="redis">
@@ -177,7 +177,14 @@
         <p>redis</p>
 <a id="more"></a>
 <h1 id="Resis概述"><a href="#Resis概述" class="headerlink" title="Resis概述"></a>Resis概述</h1><h1 id="Redis支持的数据类型"><a href="#Redis支持的数据类型" class="headerlink" title="Redis支持的数据类型"></a>Redis支持的数据类型</h1><p>redis支持的五种基本数据类型：String,hash,list,set,zset</p>
-<h1 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h1><h1 id="Redis主从复制"><a href="#Redis主从复制" class="headerlink" title="Redis主从复制"></a>Redis主从复制</h1><h1 id="Redis分布式锁"><a href="#Redis分布式锁" class="headerlink" title="Redis分布式锁"></a>Redis分布式锁</h1><h1 id="Redis淘汰策略"><a href="#Redis淘汰策略" class="headerlink" title="Redis淘汰策略"></a>Redis淘汰策略</h1><h1 id="Redis常见问题"><a href="#Redis常见问题" class="headerlink" title="Redis常见问题"></a>Redis常见问题</h1>
+<h1 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h1><p><strong>RDB</strong>：<br>DB持久化是指在指定的时间间隔内将内存中的数据集快照写入磁盘。<br>也是默认的持久化方式，这种方式是就是将内存中数据以快照的方式写入到二进制文件中,默认的文件名为dump.rdb。<br>可以通过配置设置自动做快照持久化的方式<br><strong>AOF</strong>：<br>redis会将每一个收到的写命令都通过write函数追加到文件中(默认是 appendonly.aof)。</p>
+<p>当redis重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当然由于os会在内核中缓存 write做的修改，所以可能不是立即写到磁盘上。这样aof方式的持久化也还是有可能会丢失部分修改。不过我们可以通过配置文件告诉redis我们想要 通过fsync函数强制os写入到磁盘的时机。有三种方式如下（默认是：每秒fsync一次）</p>
+<h1 id="Redis主从复制"><a href="#Redis主从复制" class="headerlink" title="Redis主从复制"></a>Redis主从复制</h1><h1 id="Redis分布式锁"><a href="#Redis分布式锁" class="headerlink" title="Redis分布式锁"></a>Redis分布式锁</h1><h2 id="什么是分布式锁？"><a href="#什么是分布式锁？" class="headerlink" title="什么是分布式锁？"></a>什么是分布式锁？</h2><p>分布式锁：当多个进程不在同一个系统中，用分布式锁控制多个进程对资源的访问。</p>
+<h1 id="Redis淘汰策略"><a href="#Redis淘汰策略" class="headerlink" title="Redis淘汰策略"></a>Redis淘汰策略</h1><p>noeviction: 不删除策略, 达到最大内存限制时, 如果需要更多内存, 直接返回错误信息。 大多数写命令都会导致占用更多的内存(有极少数会例外, 如 DEL )。<br>allkeys-lru: 所有key通用; 优先删除最近最少使用(less recently used ,LRU) 的 key。<br>volatile-lru: 只限于设置了 expire （设置了生存时间）的部分; 优先删除最近最少使用(less recently used ,LRU) 的 key。<br>allkeys-random: 所有key通用; 随机删除一部分 key。<br>volatile-random: 只限于设置了 expire 的部分; 随机删除一部分 key。<br>volatile-ttl: 只限于设置了 expire 的部分; 优先删除剩余时间(time to live,TTL) 短的key。</p>
+<h1 id="Redis常见问题"><a href="#Redis常见问题" class="headerlink" title="Redis常见问题"></a>Redis常见问题</h1><h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>在高并发下,多线程同时查询同一个资源,如果缓存中没有这个资源,那么这些线程都会去数据库查找,对数据库造成极大压力,缓存失去存在的意义.打个比方,数据库是人,缓存是防弹衣,子弹是线程,本来防弹衣是防止子弹打到人身上的,但是当防弹衣里面没有防弹的物质时,子弹就会穿过它打到人身上.<br><strong>解决方法</strong><br>1.采用布隆过滤器，使用一个足够大的bitmap，用于存储可能访问的key，不存在的key直接被过滤；<br>2.访问key未在DB查询到值，也将空值写进缓存，但可以设置较短过期时间。</p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>大量的key在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩。<br><strong>解决方法</strong><br>可以给缓存设置过期时间时加上一个随机值时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。</p>
+<h2 id="缓存并发"><a href="#缓存并发" class="headerlink" title="缓存并发"></a>缓存并发</h2><p>一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。<br><strong>解决方法</strong><br>在访问key之前，采用SETNX（set if not exists）来设置另一个短期key来锁住当前key的访问，访问结束再删除该短期key。</p>
+
       
 
       
@@ -280,6 +287,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/02/26/计网之TCP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          计网之TCP
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/02/19/Linux常见面试问题/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Linux常见面试问题</div>
@@ -309,7 +325,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Resis概述"><span class="toc-number">1.</span> <span class="toc-text">Resis概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis支持的数据类型"><span class="toc-number">2.</span> <span class="toc-text">Redis支持的数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis持久化"><span class="toc-number">3.</span> <span class="toc-text">Redis持久化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis主从复制"><span class="toc-number">4.</span> <span class="toc-text">Redis主从复制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis分布式锁"><span class="toc-number">5.</span> <span class="toc-text">Redis分布式锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis淘汰策略"><span class="toc-number">6.</span> <span class="toc-text">Redis淘汰策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis常见问题"><span class="toc-number">7.</span> <span class="toc-text">Redis常见问题</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Resis概述"><span class="toc-number">1.</span> <span class="toc-text">Resis概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis支持的数据类型"><span class="toc-number">2.</span> <span class="toc-text">Redis支持的数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis持久化"><span class="toc-number">3.</span> <span class="toc-text">Redis持久化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis主从复制"><span class="toc-number">4.</span> <span class="toc-text">Redis主从复制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis分布式锁"><span class="toc-number">5.</span> <span class="toc-text">Redis分布式锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是分布式锁？"><span class="toc-number">5.1.</span> <span class="toc-text">什么是分布式锁？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis淘汰策略"><span class="toc-number">6.</span> <span class="toc-text">Redis淘汰策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis常见问题"><span class="toc-number">7.</span> <span class="toc-text">Redis常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存穿透"><span class="toc-number">7.1.</span> <span class="toc-text">缓存穿透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存雪崩"><span class="toc-number">7.2.</span> <span class="toc-text">缓存雪崩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存并发"><span class="toc-number">7.3.</span> <span class="toc-text">缓存并发</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -421,15 +437,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Exception</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,11 +445,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -449,23 +457,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Exception</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">锁</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,7 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">锁</a>
+                <a href="javascript:void(0)" class="js-tag color3">计网</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,6 +494,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
