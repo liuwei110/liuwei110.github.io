@@ -9,14 +9,14 @@
   <title>Linux常见面试问题 | Vera的主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Linux命令">
-<meta name="keywords" content="面试,linux">
+<meta name="keywords" content="linux,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux常见面试问题">
 <meta property="og:url" content="http://yoursite.com/2019/02/19/Linux常见面试问题/index.html">
 <meta property="og:site_name" content="Vera的主页">
 <meta property="og:description" content="Linux命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-19T16:02:05.620Z">
+<meta property="og:updated_time" content="2019-03-05T02:54:16.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常见面试问题">
 <meta name="twitter:description" content="Linux命令">
@@ -190,8 +190,11 @@
 <p>KILL    9    强制终止</p>
 <p>CONT   18    继续（与STOP相反， fg/bg命令）</p>
 <p>STOP    19    暂停（同 Ctrl + Z）</p>
-<p>系统会发送一个SIGTERM的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p>
+<p>系统会发送一个SIGTERM（-15）的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p>
 <p>程序立刻停止<br>当程序释放相应资源后再停止<br>程序可能仍然继续运行<br>大部分程序接收到SIGTERM信号后，会先释放自己的资源，然后在停止。但是也有程序可以在接受到信号量后，做一些其他的事情，并且这些事情是可以<br>配置的。如果程序正在等待IO，可能就不会立马做出相应。<br>也就是说，SIGTERM多半是会被阻塞的、忽略。</p>
+<h1 id="tail-amp-head"><a href="#tail-amp-head" class="headerlink" title="tail &amp; head"></a>tail &amp; head</h1><p>tail filename //查看filename文件的后十行<br>tail -n 10 filename //查看filename文件的后十行<br>tail +20 filename //从文件的第20行开始查看到结束<br>tail -c 10 filename //显示文件的最后10个字符<br>head 是用来查看前几行<br>head -n 10 filename //查看filename文件的前十行</p>
+<h1 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h1><p>cat 命令用于连接文件并打印到标准输出设备上。</p>
+<p>cat -n textfile1 &gt; textfile2//把 textfile1 的文档内容加上行号后输入 textfile2 这个文档里：</p>
 
       
 
@@ -236,11 +239,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
         		</li>
       		
 		</ul>
@@ -348,7 +351,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat-amp-grep"><span class="toc-number">3.</span> <span class="toc-text">netstat &amp; grep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">4.</span> <span class="toc-text">kill</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat-amp-grep"><span class="toc-number">3.</span> <span class="toc-text">netstat &amp; grep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">4.</span> <span class="toc-text">kill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tail-amp-head"><span class="toc-number">5.</span> <span class="toc-text">tail &amp; head</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cat"><span class="toc-number">6.</span> <span class="toc-text">cat</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -460,7 +463,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,19 +471,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,11 +479,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">锁</a>
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,11 +499,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">锁</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,19 +519,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">

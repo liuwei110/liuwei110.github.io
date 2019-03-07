@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Vera的主页">
 <meta property="og:description" content="TCP">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-26T05:19:18.889Z">
+<meta property="og:updated_time" content="2019-03-06T13:51:38.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网之TCP">
 <meta name="twitter:description" content="TCP">
@@ -178,8 +178,8 @@
         <p>TCP<br><a id="more"></a></p>
 <h1 id="TCP概述"><a href="#TCP概述" class="headerlink" title="TCP概述"></a>TCP概述</h1><p>TCP协议全称: 传输控制协议, 顾名思义, 就是要对数据的传输进行一定的控制. </p>
 <h1 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h1><p>第一次：客户端发送SYN=1,seq=x给服务器，客户端进入SYN-SENT状态<br>第二次：服务器接收到请求进入到SYN-RCVD状态，并发送SYN=1,ACK=1,ack=x+1,seq=y给客户端<br>第三次：客户端发送ACK=1,ack=y+1,seq=x+1给服务器，并且客户端进入established状态，服务器接受到也进入established状态<br><strong>为什么需要三次握手？</strong><br>怕突然已经失效的连接请求突然到达服务器</p>
-<h1 id="TCP的四次挥手"><a href="#TCP的四次挥手" class="headerlink" title="TCP的四次挥手"></a>TCP的四次挥手</h1><p>第一次：客户端发送FIN=1,seq=u给服务器，客户端进入FIN-WAIT1状态<br>第二次：服务器接收后，并发送ACK=1,ack=u+1,seq=v,服务器进入CLOSE-WAIT状态<br>第三次：服务器发送FIN=1,ack=u+1,seq=w,ACK=1给客户端，服务器进入LAST-ACK状态<br>第四次：客户端接收后并发送ACK=1,ack=w+1,seq=u+1，并且进入CLOSED-WAIT状态等待2msl后进入CLOSED状态，服务器接收到请求进入CLOSED状态</p>
-<p><strong>为什么time_wait有个2msl</strong><br>1.确保最后发送的ACK可以到达服务器，因为这个有可能丢失，一旦服务器处于LAST-ACK状态一直接收到不到对方的确认则会超时重传；<br>2.防止类似失效的断开连接请求被服务器接受</p>
+<h1 id="TCP的四次挥手"><a href="#TCP的四次挥手" class="headerlink" title="TCP的四次挥手"></a>TCP的四次挥手</h1><p>第一次：客户端发送FIN=1,seq=u给服务器，客户端进入FIN-WAIT1状态<br>第二次：服务器接收后，并发送ACK=1,ack=u+1,seq=v,服务器进入CLOSE-WAIT状态<br>第三次：服务器发送FIN=1,ack=u+1,seq=w,ACK=1给客户端，服务器进入LAST-ACK状态<br>第四次：客户端接收后并发送ACK=1,ack=w+1,seq=u+1，并且进入TIME-WAIT状态等待2msl后进入CLOSED状态，服务器接收到请求进入CLOSED状态</p>
+<p><strong>为什么time_wait有个2msl</strong><br>1.确保最后发送的ACK可以到达服务器，因为这个有可能丢失，一旦服务器处于LAST-ACK状态一直接收到不到对方的确认则会超时重传；<br>2.再经过2MSL时间，就可以使本连接持续的时间所产生的所有报文段都从网络中消失。这样就可以使下一个新的连接中不会出现这种旧的连接请求的报文段。 </p>
 <p><strong>为什么tcp三次握手而要四次挥手</strong></p>
 <p>因为FIN只表示对方不再发送数据但是可以接受数据，自己也可以发送数据；再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送，从而导致多了一次。</p>
 <h1 id="TCP出现的故障"><a href="#TCP出现的故障" class="headerlink" title="TCP出现的故障"></a>TCP出现的故障</h1><p><strong>如果保持连接的时候，服务器突然出现故障？</strong><br>TCP有一个保活计时器，每当服务器接受到客户端的信息时都会复位这个计时器，保活计时器通常是2个小时，如果已经和服务器建立了连接，突然服务器发生故障，2个小时服务器都没有接受到来自客户端的消息，则服务器就会发送一个探测报文段，以后每隔75秒钟都发送一次，若连续发送10次探测报文段都没有回应，则服务器认为客户端出现故障，然后就关闭连接。</p>
@@ -442,7 +442,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,19 +450,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,11 +458,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">锁</a>
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,11 +478,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">锁</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,19 +498,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
