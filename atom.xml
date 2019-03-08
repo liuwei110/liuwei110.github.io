@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-06T13:51:38.843Z</updated>
+  <updated>2019-03-08T14:48:17.730Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>计网之TCP</title>
-    <link href="http://yoursite.com/2019/02/26/%E8%AE%A1%E7%BD%91%E4%B9%8BTCP/"/>
-    <id>http://yoursite.com/2019/02/26/计网之TCP/</id>
+    <link href="http://yoursite.com/2019/02/26/%E8%AE%A1%E7%BD%91/"/>
+    <id>http://yoursite.com/2019/02/26/计网/</id>
     <published>2019-02-26T02:22:10.000Z</published>
-    <updated>2019-03-06T13:51:38.843Z</updated>
+    <updated>2019-03-08T14:48:17.730Z</updated>
     
     <content type="html"><![CDATA[<p>TCP<br><a id="more"></a></p><h1 id="TCP概述"><a href="#TCP概述" class="headerlink" title="TCP概述"></a>TCP概述</h1><p>TCP协议全称: 传输控制协议, 顾名思义, 就是要对数据的传输进行一定的控制. </p><h1 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h1><p>第一次：客户端发送SYN=1,seq=x给服务器，客户端进入SYN-SENT状态<br>第二次：服务器接收到请求进入到SYN-RCVD状态，并发送SYN=1,ACK=1,ack=x+1,seq=y给客户端<br>第三次：客户端发送ACK=1,ack=y+1,seq=x+1给服务器，并且客户端进入established状态，服务器接受到也进入established状态<br><strong>为什么需要三次握手？</strong><br>怕突然已经失效的连接请求突然到达服务器</p><h1 id="TCP的四次挥手"><a href="#TCP的四次挥手" class="headerlink" title="TCP的四次挥手"></a>TCP的四次挥手</h1><p>第一次：客户端发送FIN=1,seq=u给服务器，客户端进入FIN-WAIT1状态<br>第二次：服务器接收后，并发送ACK=1,ack=u+1,seq=v,服务器进入CLOSE-WAIT状态<br>第三次：服务器发送FIN=1,ack=u+1,seq=w,ACK=1给客户端，服务器进入LAST-ACK状态<br>第四次：客户端接收后并发送ACK=1,ack=w+1,seq=u+1，并且进入TIME-WAIT状态等待2msl后进入CLOSED状态，服务器接收到请求进入CLOSED状态</p><p><strong>为什么time_wait有个2msl</strong><br>1.确保最后发送的ACK可以到达服务器，因为这个有可能丢失，一旦服务器处于LAST-ACK状态一直接收到不到对方的确认则会超时重传；<br>2.再经过2MSL时间，就可以使本连接持续的时间所产生的所有报文段都从网络中消失。这样就可以使下一个新的连接中不会出现这种旧的连接请求的报文段。 </p><p><strong>为什么tcp三次握手而要四次挥手</strong></p><p>因为FIN只表示对方不再发送数据但是可以接受数据，自己也可以发送数据；再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送，从而导致多了一次。</p><h1 id="TCP出现的故障"><a href="#TCP出现的故障" class="headerlink" title="TCP出现的故障"></a>TCP出现的故障</h1><p><strong>如果保持连接的时候，服务器突然出现故障？</strong><br>TCP有一个保活计时器，每当服务器接受到客户端的信息时都会复位这个计时器，保活计时器通常是2个小时，如果已经和服务器建立了连接，突然服务器发生故障，2个小时服务器都没有接受到来自客户端的消息，则服务器就会发送一个探测报文段，以后每隔75秒钟都发送一次，若连续发送10次探测报文段都没有回应，则服务器认为客户端出现故障，然后就关闭连接。</p><h1 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h1><p>参考博客：<a href="https://www.cnblogs.com/woaiyy/p/3554182.html" target="_blank" rel="noopener">https://www.cnblogs.com/woaiyy/p/3554182.html</a></p><h2 id="滑动窗口的具体实现"><a href="#滑动窗口的具体实现" class="headerlink" title="滑动窗口的具体实现"></a>滑动窗口的具体实现</h2><p>A给B发送数据<br>刚开始建立连接的时候B会告诉A自己的接收窗口大小，比如20<br>具体查看上列博客</p><h2 id="拥塞的控制"><a href="#拥塞的控制" class="headerlink" title="拥塞的控制"></a>拥塞的控制</h2><p>1.慢开始、拥塞控制<br>2.快重传、快恢复<br>条件判定：ssthresh，慢开始门限<br><em>1. cwnd &lt; ssthresh， 继续使用慢开始算法；比如2的n次方</em>2. cwnd &gt; ssthresh，停止使用慢开始算法，改用拥塞避免算法；y=kx<br>*3. cwnd = ssthresh，既可以使用慢开始算法，也可以使用拥塞避免算法；<br>如果连续三个重复的确认则转入拥塞避免；如果超时重新转入慢开始</p>]]></content>
     
@@ -33,6 +33,24 @@
     
     
       <category term="计网" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>操作系统</title>
+    <link href="http://yoursite.com/2019/02/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://yoursite.com/2019/02/25/操作系统/</id>
+    <published>2019-02-25T08:52:31.000Z</published>
+    <updated>2019-03-08T14:42:17.624Z</updated>
+    
+    <content type="html"><![CDATA[<p>操作系统面经集合：<br><a id="more"></a></p><h2 id="进程和线程的联系和区别？"><a href="#进程和线程的联系和区别？" class="headerlink" title="进程和线程的联系和区别？"></a>进程和线程的联系和区别？</h2><p>联系：一个进程可以有多个线程，一个线程只能属于一个进程<br>区别：进程是操作系统分配资源的最小单位，线程是任务执行和调度的最小单位。进程的开销毕竟大，线程的开销小；</p><h2 id="进程间的通信"><a href="#进程间的通信" class="headerlink" title="进程间的通信"></a>进程间的通信</h2><p>共享内存、scoket、信号、管道、消息队列</p><h2 id="进程调度的算法"><a href="#进程调度的算法" class="headerlink" title="进程调度的算法"></a>进程调度的算法</h2><p>1.先来先服务算法://有利于长作业、平，不利于短作业<br>2.短作业优先算法：不利于长作业<br>3.<strong>高优先权调度算法</strong><br>3-1：非抢占式优先权算法<br>3-2：抢占式优先权算法<br>3-3：高响应比有限调度算法：作业的优先级随着等待时间的增加而以速率a 提高；//优点是兼顾长短作业，缺点是计算响应比开销大<br>4.时间片轮转：优点是兼顾长短作业；缺点是平均等待时间较长，上下文切换较费时。//<br>5.多级反馈队列调度算法</p><h2 id="死锁的产生条件"><a href="#死锁的产生条件" class="headerlink" title="死锁的产生条件"></a>死锁的产生条件</h2><p>1.互斥条件<br>2.请求和保持（占有且等待）<br>3.循环等待<br>4.不可剥夺</p><h2 id="死锁产生的原因"><a href="#死锁产生的原因" class="headerlink" title="死锁产生的原因"></a>死锁产生的原因</h2><p>1.因竞争资源发生死锁 现象：系统中供多个进程共享的资源的数目不足以满足全部进程的需要时，就会引起对诸资源的竞争而发生死锁现象</p><h2 id="死锁的避免"><a href="#死锁的避免" class="headerlink" title="死锁的避免"></a>死锁的避免</h2><p>破坏三个条件：<br>a.破坏“占有且等待”条件：<br>1.进程在开始运行前，一次性申请整个整个过程需要的所有资源<br>2.运行后逐步释放已经使用完毕的资源</p><p>b.破坏“不可剥夺”条件：<br>当一个已经持有了一些资源的进程在提出新的资源请求没有得到满足时，它必须释放已经保持的所有资源，待以后需要使用的时候再重新申请。</p><p>c.破坏“循环等待”条件：<br>以通过定义资源类型的线性顺序来预防，可将每个资源编号，当一个进程占有编号为i的资源时，那么它下一次申请资源只能申请编号大于i的资源。</p><p>在使用前就判断释放会死锁；只有不会出现死锁的情况下才分配资源<br>-银行家算法</p><h2 id="死锁的检测"><a href="#死锁的检测" class="headerlink" title="死锁的检测"></a>死锁的检测</h2><p>使用死锁检测算法</p><h2 id="死锁的解决"><a href="#死锁的解决" class="headerlink" title="死锁的解决"></a>死锁的解决</h2><p>1.抢占资源：从一个或则多个进程中抢占足够数量的资源分配给死锁进程，以解除死锁状态<br>2.终止（或撤销）进程：终止或撤销系统中的一个或多个死锁进程，直至打破死锁状态。<br>    a、终止所有的死锁进程。这种方式简单粗暴，但是代价很大，很有可能会导致一些已经运行了很久的进程前功尽弃。<br>    b、逐个终止进程，直至死锁状态解除。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;操作系统面经集合：&lt;br&gt;
+    
+    </summary>
+    
     
   </entry>
   
@@ -59,9 +77,9 @@
     <link href="http://yoursite.com/2019/02/19/Linux%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2019/02/19/Linux常见面试问题/</id>
     <published>2019-02-19T13:40:13.000Z</published>
-    <updated>2019-03-05T02:54:16.780Z</updated>
+    <updated>2019-03-07T07:52:23.647Z</updated>
     
-    <content type="html"><![CDATA[<p>Linux命令</p><a id="more"></a><h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>查看当前进程 ps(process)<br>ps [option] [–help]<br>参数：<br>-A列出所有的行程<br>-w 显示加宽可以显示较多的资讯<br>-au 显示较详细的资讯<br>-aux 显示所有包含其他使用者的行程</p><h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>lsof意为列出当前系统打开的文件<br>查看某个端口被占用情况<br>lsof -i:端口号</p><h1 id="netstat-amp-grep"><a href="#netstat-amp-grep" class="headerlink" title="netstat &amp; grep"></a>netstat &amp; grep</h1><p>netstat用于显示网络状态<br>netstat -lnt | grep 端口<br>-l或–listening 显示监控中的服务器的Socket。<br>-n或–numeric 直接使用IP地址，而不通过域名服务器。<br>-t或–tcp 显示TCP传输协议的连线状况。<br>-u或–udp 显示UDP传输协议的连线状况。   </p><p>grep用于查找文件里符合条件的字符串。</p><h1 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h1><p>kill命令用于删除执行中的程序或工作。<br>kill [参数][进程号]<br>kill [-s &lt;信息名称或编号&gt;][程序]　或　kill [-l &lt;信息编号&gt;]<br>kill -9 123456表示彻底杀死进程，必杀令<br>kill -l 列出所有信号名称<br>只有第9种信号(SIGKILL)</p><p>才可以无条件终止进程，其他信号进程都有权利忽略。 下面是常用的信号：</p><p>HUP    1    终端断线</p><p>INT     2    中断（同 Ctrl + C）</p><p>QUIT    3    退出（同 Ctrl + \）</p><p>TERM   15    终止</p><p>KILL    9    强制终止</p><p>CONT   18    继续（与STOP相反， fg/bg命令）</p><p>STOP    19    暂停（同 Ctrl + Z）</p><p>系统会发送一个SIGTERM（-15）的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p><p>程序立刻停止<br>当程序释放相应资源后再停止<br>程序可能仍然继续运行<br>大部分程序接收到SIGTERM信号后，会先释放自己的资源，然后在停止。但是也有程序可以在接受到信号量后，做一些其他的事情，并且这些事情是可以<br>配置的。如果程序正在等待IO，可能就不会立马做出相应。<br>也就是说，SIGTERM多半是会被阻塞的、忽略。</p><h1 id="tail-amp-head"><a href="#tail-amp-head" class="headerlink" title="tail &amp; head"></a>tail &amp; head</h1><p>tail filename //查看filename文件的后十行<br>tail -n 10 filename //查看filename文件的后十行<br>tail +20 filename //从文件的第20行开始查看到结束<br>tail -c 10 filename //显示文件的最后10个字符<br>head 是用来查看前几行<br>head -n 10 filename //查看filename文件的前十行</p><h1 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h1><p>cat 命令用于连接文件并打印到标准输出设备上。</p><p>cat -n textfile1 &gt; textfile2//把 textfile1 的文档内容加上行号后输入 textfile2 这个文档里：</p>]]></content>
+    <content type="html"><![CDATA[<p>Linux命令</p><a id="more"></a><h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>查看当前进程 ps(process)<br>ps [option] [–help]<br>参数：<br>-A列出所有的行程<br>-w 显示加宽可以显示较多的资讯<br>-au 显示较详细的资讯<br>-aux 显示所有包含其他使用者的行程</p><h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>lsof意为列出当前系统打开的文件<br>查看某个端口被占用情况<br>lsof -i:端口号</p><h1 id="netstat-amp-grep"><a href="#netstat-amp-grep" class="headerlink" title="netstat &amp; grep"></a>netstat &amp; grep</h1><p>netstat用于显示网络状态<br>netstat -lnt | grep 端口<br>-l或–listening 显示监控中的服务器的Socket。<br>-n或–numeric 直接使用IP地址，而不通过域名服务器。<br>-t或–tcp 显示TCP传输协议的连线状况。<br>-u或–udp 显示UDP传输协议的连线状况。   </p><p>grep用于查找文件里符合条件的字符串。</p><h1 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h1><p>kill命令用于删除执行中的程序或工作。<br>kill [参数][进程号]<br>kill [-s &lt;信息名称或编号&gt;][程序]　或　kill [-l &lt;信息编号&gt;]<br>kill -9 123456表示彻底杀死进程，必杀令<br>kill -l 列出所有信号名称<br>只有第9种信号(SIGKILL)</p><p>才可以无条件终止进程，其他信号进程都有权利忽略。 下面是常用的信号：</p><p>HUP    1    终端断线</p><p>INT     2    中断（同 Ctrl + C）</p><p>QUIT    3    退出（同 Ctrl + \）</p><p>TERM   15    终止</p><p>KILL    9    强制终止</p><p>CONT   18    继续（与STOP相反， fg/bg命令）</p><p>STOP    19    暂停（同 Ctrl + Z）</p><p>系统会发送一个SIGTERM（-15）的信号给对应的程序。当程序接收到该signal后，将会发生以下的事情</p><p>程序立刻停止<br>当程序释放相应资源后再停止<br>程序可能仍然继续运行<br>大部分程序接收到SIGTERM信号后，会先释放自己的资源，然后在停止。但是也有程序可以在接受到信号量后，做一些其他的事情，并且这些事情是可以<br>配置的。如果程序正在等待IO，可能就不会立马做出相应。<br>也就是说，SIGTERM多半是会被阻塞的、忽略。</p><h1 id="tail-amp-head"><a href="#tail-amp-head" class="headerlink" title="tail &amp; head"></a>tail &amp; head</h1><p>tail filename //查看filename文件的后十行<br>tail -n 10 filename //查看filename文件的后十行<br>tail +20 filename //从文件的第20行开始查看到结束<br>tail -c 10 filename //显示文件的最后10个字符<br>head 是用来查看前几行<br>head -n 10 filename //查看filename文件的前十行</p><h1 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h1><p>cat 命令用于连接文件并打印到标准输出设备上。</p><p>cat -n textfile1 &gt; textfile2//把 textfile1 的文档内容加上行号后输入 textfile2 这个文档里：</p><h1 id="du"><a href="#du" class="headerlink" title="du"></a>du</h1><p>查看使用空间的，但是与df命令不同的是Linux du命令是查看当前指定文件或目录(会递归显示子目录)占用磁盘空间大小，还是和df命令有一些区别的.<br>du [选项][文件]</p><h1 id="df"><a href="#df" class="headerlink" title="df"></a>df</h1><p>检查linux服务器的文件系统的磁盘空间占用情况。</p><h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><p>可以持续监视查看进程的网络状态；和ps不同，ps只能查看瞬间的网络状态</p>]]></content>
     
     <summary type="html">
     
@@ -419,30 +437,6 @@
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
       <category term="Exception" scheme="http://yoursite.com/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java异常之OOM</title>
-    <link href="http://yoursite.com/2018/11/28/java%E5%BC%82%E5%B8%B8%E4%B9%8BOOM/"/>
-    <id>http://yoursite.com/2018/11/28/java异常之OOM/</id>
-    <published>2018-11-28T08:37:41.000Z</published>
-    <updated>2018-12-29T07:52:28.634Z</updated>
-    
-    <content type="html"><![CDATA[<p>OOM(out of memory)<br><a id="more"></a><br>由于遇到的较少….目前只能写个概念…未完待续….</p><h1 id="什么是OOM"><a href="#什么是OOM" class="headerlink" title="什么是OOM?"></a>什么是OOM?</h1><p><strong>OOM</strong>即out of memory 翻译过来就是“内存用完了”，来源于java.lang.OutOfMemeoryError;<br>官方说明：Thrown when the Java Virtual Machine cannot allocate an object because it is out of memory, and no more memory could be made available by the garbage collector. 当JVM因为没有足够的内存来为对象分配空间并且垃圾回收器也已经没有空间可回收时，就会抛出这个error（注：非exception，因为这个问题已经严重到不足以被应用处理）。</p><h1 id="为什么会产生OOM"><a href="#为什么会产生OOM" class="headerlink" title="为什么会产生OOM"></a>为什么会产生OOM</h1><p>1.分配的太少了，不够用比如虚拟机本身可使用的内存（一般通过启动时的VM参数指定）太少。<br>2.应用用的太多，且用完没有释放资源，浪费了。此时就会造成内存泄露或者内存溢出</p><h1 id="常见的OOM情况"><a href="#常见的OOM情况" class="headerlink" title="常见的OOM情况"></a>常见的OOM情况</h1><p>1.java.lang.OutOfMemoryError: Java heap space ——&gt;java堆内存溢出，此种情况最常见，一般由于内存泄露或者堆的大小设置不当引起。对于内存泄露，需要通过内存监控软件查找程序中的泄露代码，而堆大小可以通过虚拟机参数-Xms,-Xmx等修改。</p><p>2.java.lang.OutOfMemoryError: PermGen space ——&gt;java永久代溢出，即方法区溢出了，一般出现于大量Class或者jsp页面，或者采用cglib等反射机制的情况，因为上述情况会产生大量的Class信息存储于方法区。此种情况可以通过更改方法区的大小来解决，使用类似-XX:PermSize=64m -XX:MaxPermSize=256m的形式修改。另外，过多的常量尤其是字符串也会导致方法区溢出。</p><p>3.java.lang.StackOverflowError ——&gt; 不会抛OOM error，但也是比较常见的Java内存溢出。JAVA虚拟机栈溢出，一般是由于程序中存在死循环或者深度递归调用造成的，栈大小设置太小也会出现此种溢出。可以通过虚拟机参数-Xss来设置栈的大小。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;OOM(out of memory)&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
-      <category term="Exception" scheme="http://yoursite.com/tags/Exception/"/>
-    
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   

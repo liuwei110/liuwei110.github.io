@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Vera的主页">
 <meta property="og:description" content="Linux命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T02:54:16.780Z">
+<meta property="og:updated_time" content="2019-03-07T07:52:23.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常见面试问题">
 <meta name="twitter:description" content="Linux命令">
@@ -195,6 +195,9 @@
 <h1 id="tail-amp-head"><a href="#tail-amp-head" class="headerlink" title="tail &amp; head"></a>tail &amp; head</h1><p>tail filename //查看filename文件的后十行<br>tail -n 10 filename //查看filename文件的后十行<br>tail +20 filename //从文件的第20行开始查看到结束<br>tail -c 10 filename //显示文件的最后10个字符<br>head 是用来查看前几行<br>head -n 10 filename //查看filename文件的前十行</p>
 <h1 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h1><p>cat 命令用于连接文件并打印到标准输出设备上。</p>
 <p>cat -n textfile1 &gt; textfile2//把 textfile1 的文档内容加上行号后输入 textfile2 这个文档里：</p>
+<h1 id="du"><a href="#du" class="headerlink" title="du"></a>du</h1><p>查看使用空间的，但是与df命令不同的是Linux du命令是查看当前指定文件或目录(会递归显示子目录)占用磁盘空间大小，还是和df命令有一些区别的.<br>du [选项][文件]</p>
+<h1 id="df"><a href="#df" class="headerlink" title="df"></a>df</h1><p>检查linux服务器的文件系统的磁盘空间占用情况。</p>
+<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><p>可以持续监视查看进程的网络状态；和ps不同，ps只能查看瞬间的网络状态</p>
 
       
 
@@ -351,7 +354,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat-amp-grep"><span class="toc-number">3.</span> <span class="toc-text">netstat &amp; grep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">4.</span> <span class="toc-text">kill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tail-amp-head"><span class="toc-number">5.</span> <span class="toc-text">tail &amp; head</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cat"><span class="toc-number">6.</span> <span class="toc-text">cat</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ps"><span class="toc-number">1.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">2.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat-amp-grep"><span class="toc-number">3.</span> <span class="toc-text">netstat &amp; grep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kill"><span class="toc-number">4.</span> <span class="toc-text">kill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tail-amp-head"><span class="toc-number">5.</span> <span class="toc-text">tail &amp; head</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cat"><span class="toc-number">6.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#du"><span class="toc-number">7.</span> <span class="toc-text">du</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#df"><span class="toc-number">8.</span> <span class="toc-text">df</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#top"><span class="toc-number">9.</span> <span class="toc-text">top</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -487,19 +490,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">并发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">线程池</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">锁</a>
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,11 +506,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计网</a>
+                <a href="javascript:void(0)" class="js-tag color2">锁</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计网</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +523,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
